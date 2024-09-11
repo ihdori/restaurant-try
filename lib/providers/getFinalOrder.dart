@@ -1,6 +1,14 @@
+import 'package:firebase_training/providers/meals_checkout_list_provider.dart';
+import 'package:firebase_training/providers/total_price_provider.dart';
+import 'package:firebase_training/providers/user_address_provider.dart';
+import 'package:firebase_training/providers/user_phone_number_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final textProvider = StateProvider((ref) {
+  final mealList = ref.watch(mealCheckOutListProvider);
+  final totalPrice = ref.watch(totalPriceProvider);
+  final address = ref.watch(userAdressProvider);
+  final phoneNumber = ref.watch(userPhoneNumberProvider);
   String formatOrderDetails(List<Map<String, dynamic>> meals, double totalPrice,
       String address, String phoneNumber) {
     // Construct the meal details string
@@ -27,13 +35,12 @@ $mealDetails
     return orderDetails;
   }
 
-  return formatOrderDetails([
-    {"name": 'برياني', "quantity": 2},
-    {"name": 'بيتزا', "quantity": 2},
-    {"name": 'صاج دجاج', "quantity": 6},
-    {"name": 'ريزو', "quantity": 2},
-    {"name": 'شاورما لحم', "quantity": 3}
-  ], 25, 'الناصرية - حي البشائر', '7806233291');
+  return formatOrderDetails(
+    mealList,
+    totalPrice,
+    address,
+    phoneNumber,
+  );
 });
 
 

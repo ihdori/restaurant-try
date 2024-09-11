@@ -78,40 +78,46 @@ class _HomePageState extends State<HomePage> {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 1.5,
+                childAspectRatio: 1.36,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
               ),
               itemCount: items.length,
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        // height: 120,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8)),
-                          child: Image.network(
-                            'https://th.bing.com/th/id/OIP.FZapWecx1VvgfBZlI_MdtQAAAA',
-                            fit: BoxFit.cover,
-                            scale: 0.5,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'mealsListScreen');
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          // height: 120,
+                          width: MediaQuery.of(context).size.width,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8)),
+                            child: Image.network(
+                              'https://th.bing.com/th/id/OIP.FZapWecx1VvgfBZlI_MdtQAAAA',
+                              fit: BoxFit.cover,
+                              scale: 0.5,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          items[index],
-                          style: TextStyle(fontSize: 16),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            items[index],
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

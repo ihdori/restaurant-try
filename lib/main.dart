@@ -1,5 +1,7 @@
-import 'package:firebase_training/getFinalOrder.dart';
-import 'package:firebase_training/home_screen.dart';
+import 'package:firebase_training/providers/getFinalOrder.dart';
+import 'package:firebase_training/screens/final_screen.dart';
+import 'package:firebase_training/screens/home_screen.dart';
+import 'package:firebase_training/screens/meals_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,11 +17,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Restaurant',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      routes: {
+        'mealsListScreen': (context) => MealsListScreen(),
+        'finalScreen': (context) => FinalScreen(),
+      },
       home: HomePage(),
     );
   }
