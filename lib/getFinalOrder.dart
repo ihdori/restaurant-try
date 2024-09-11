@@ -11,16 +11,16 @@ final textProvider = StateProvider((ref) {
     // Construct the final order details string
     String orderDetails = '''
 :تفاصيل الطلب
-============
+========================
 $mealDetails
 ------------------
-السعر النهائي: \$${totalPrice.toStringAsFixed(2)}
+:السعر النهائي ${totalPrice.toStringAsFixed(2)}
 
------------------
+----------------------------------
 
 العنوان: $address
 
------------------
+----------------------------------
 رقم الهاتف: https://wa.me/964${phoneNumber[0] == "0" ? phoneNumber.substring(1) : phoneNumber}
 ''';
 
