@@ -44,20 +44,7 @@ dev_dependencies:
     sdk: flutter
 
 
-flutter_native_splash:
-  color: "#42a5f5"
-  image: assets/page_loading.gif
-  branding: assets/ihdori.png
-  
-  
-  
-  android_12:
-    image: assets/page_loading.gif
-    
-    
-  
-  web:
-    image: assets/page_loading.gif
+
     
     
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -108,3 +95,18 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_native_splash:
+  color: "#42a5f5"
+  image: ./assets/page_loading.gif
+  branding: ./assets/ihdori.png
+  
+  android_12:
+    image: ./assets/page_loading.gif
+    
+  
+  web:
+    image: ./assets/page_loading.gif
+  android: false
+  web_image_mode: center
+  ios: false
