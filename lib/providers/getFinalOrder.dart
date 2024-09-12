@@ -1,3 +1,4 @@
+import 'package:firebase_training/functions/number_formatter.dart';
 import 'package:firebase_training/providers/meals_checkout_list_provider.dart';
 import 'package:firebase_training/providers/total_price_provider.dart';
 import 'package:firebase_training/providers/user_address_provider.dart';
@@ -23,7 +24,7 @@ final textProvider = StateProvider((ref) {
 $mealDetails
 -------------------------------
 
-السعر النهائي: ${totalPrice}
+السعر النهائي:  ${formatNumber(totalPrice)}
 
 -------------------------------
 

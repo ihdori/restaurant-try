@@ -92,6 +92,15 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(
+                              0.1), // Shadow color with lower opacity
+                          spreadRadius: 10, // Increase the spread radius
+                          blurRadius: 20, // Increase the blur radius
+                          offset: Offset(0, 5), // Increase the vertical offset
+                        ),
+                      ],
                     ),
                     child: Column(
                       children: [

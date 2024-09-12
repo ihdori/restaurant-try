@@ -76,6 +76,15 @@ class MealsListScreen extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(
+                            0.1), // Shadow color with lower opacity
+                        spreadRadius: 10, // Increase the spread radius
+                        blurRadius: 20, // Increase the blur radius
+                        offset: Offset(0, 5), // Increase the vertical offset
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: [
@@ -118,7 +127,12 @@ class MealsListScreen extends ConsumerWidget {
                       ),
                       MaterialButton(
                         onPressed: () {
-                          addMealDialog(context, ref, index, items);
+                          addMealDialog(
+                            context: context,
+                            ref: ref,
+                            index: index,
+                            items: items,
+                          );
                         },
                         color: Colors.green,
                         child: const Text(
