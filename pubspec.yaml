@@ -37,11 +37,29 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^2.5.1
   flutter_native_splash: ^2.4.1
+  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
+flutter_native_splash:
+  color: "#42a5f5"
+  image: assets/page_loading.gif
+  branding: assets/ihdori.png
+  
+  
+  
+  android_12:
+    image: assets/page_loading.gif
+    
+    
+  
+  web:
+    image: assets/page_loading.gif
+    
+    
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

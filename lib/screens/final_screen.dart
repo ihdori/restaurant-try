@@ -19,7 +19,6 @@ class FinalScreen extends ConsumerWidget {
         body: Column(
           children: [
             Text('قائمة طلباتي:'),
-            Text(mealDetails.toString()),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.7,
               child: ListView.builder(
@@ -27,7 +26,10 @@ class FinalScreen extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text(mealDetails[index]['name']),
-                    leading: Text((mealDetails[index]['quantity'].toString())),
+                    leading: Text(
+                      (mealDetails[index]['quantity'].toString()),
+                      style: TextStyle(fontSize: 20),
+                    ),
                     trailing: Text(
                         'سعر الوجبة الواحدة: ${formatNumber(mealDetails[index]['price'])}'),
                     onTap: () {
@@ -44,7 +46,6 @@ class FinalScreen extends ConsumerWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  // print(mealDetails[0]['name']);
                   Clipboard.setData(ClipboardData(text: text));
 
                   showDialog(

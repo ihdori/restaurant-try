@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     'عصائر',
     'معجنات',
   ];
-
+  final _controler = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: MediaQuery.of(context).size.height / 4,
               child: PageView.builder(
+                controller: _controler,
                 itemCount: offerImages.length,
                 itemBuilder: (context, index) {
                   return Padding(
@@ -57,6 +59,15 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 12),
+              child: SmoothPageIndicator(
+                  controller: _controler, // PageController
+                  count: 3,
+                  effect: WormEffect(dotHeight: 5), // your preferred effect
+                  onDotClicked: (index) {}),
             ),
             SizedBox(height: 16),
             Padding(

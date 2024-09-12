@@ -5,9 +5,7 @@ flutter_native_splash:
   
   android_12:
     image: assets/page_loading.gif
-    icon_background_color: "#111111"
+    
   
   web:
     image: assets/page_loading.gif
-    background_color: "#111111"
-    theme_color: "#0175C2"
