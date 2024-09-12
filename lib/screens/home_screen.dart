@@ -26,15 +26,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('مطعم شيف المندي'),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Text(

@@ -108,7 +108,8 @@ Future<dynamic> addMealDialog({
                                     ...state,
                                     {
                                       'name': items[index]['name'],
-                                      'quantity': counter
+                                      'quantity': counter,
+                                      'price': items[index]['price'],
                                     }
                                   ]);
                           ref.read(totalPriceProvider.notifier).update(

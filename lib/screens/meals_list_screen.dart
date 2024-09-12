@@ -1,6 +1,4 @@
-import 'package:firebase_training/providers/meal_temp_counter_provider.dart';
-import 'package:firebase_training/providers/meals_checkout_list_provider.dart';
-import 'package:firebase_training/providers/total_price_provider.dart';
+import 'package:firebase_training/functions/number_formatter.dart';
 import 'package:firebase_training/utils/meals_list_screen_utlis/addMealDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,10 +28,6 @@ class MealsListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('مطعم شيف المندي'),
-        centerTitle: true,
-      ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Navigator.pushReplacementNamed(context, 'finalScreen');
@@ -120,7 +114,7 @@ class MealsListScreen extends ConsumerWidget {
                           ),
                           Text(
                             textDirection: TextDirection.rtl,
-                            items[index]['price'].toString(),
+                            formatNumber(items[index]['price']),
                             style: const TextStyle(fontSize: 16),
                           ),
                         ],
