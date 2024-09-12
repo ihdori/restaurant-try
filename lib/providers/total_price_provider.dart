@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final totalPriceProvider = StateProvider<double>((ref) {
+final totalPriceProvider = StateProvider<int>((ref) {
   return 0;
 });

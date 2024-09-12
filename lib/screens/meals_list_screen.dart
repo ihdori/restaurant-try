@@ -1,12 +1,14 @@
+import 'package:firebase_training/providers/meal_temp_counter_provider.dart';
 import 'package:firebase_training/providers/meals_checkout_list_provider.dart';
 import 'package:firebase_training/providers/total_price_provider.dart';
+import 'package:firebase_training/utils/meals_list_screen_utlis/addMealDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MealsListScreen extends ConsumerWidget {
   MealsListScreen({super.key});
 
-  final List<Map> items = [
+  final List<Map<String, dynamic>> items = [
     {
       'name': 'مندي دجاج',
       'price': 12000,
@@ -29,7 +31,7 @@ class MealsListScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('مطعم شيف المندي'),
+        title: const Text('مطعم شيف المندي'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -37,8 +39,8 @@ class MealsListScreen extends ConsumerWidget {
             Navigator.pushReplacementNamed(context, 'finalScreen');
           },
           backgroundColor: Colors.green,
-          icon: Icon(Icons.add_shopping_cart_rounded),
-          label: Row(
+          icon: const Icon(Icons.add_shopping_cart_rounded),
+          label: const Row(
             children: [
               Text('Check out'),
               // Icon(Icons.add_shopping_cart_rounded)
@@ -48,21 +50,21 @@ class MealsListScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
               child: Text(
                 textDirection: TextDirection.rtl,
                 'المندي:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.7,
                 crossAxisSpacing: 12,
@@ -81,7 +83,7 @@ class MealsListScreen extends ConsumerWidget {
                         height: 120,
                         width: MediaQuery.of(context).size.width,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(8),
                               topRight: Radius.circular(8)),
                           child: Image.network(
@@ -93,7 +95,7 @@ class MealsListScreen extends ConsumerWidget {
                       ),
                       Text(
                         items[index]['name'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
@@ -102,7 +104,7 @@ class MealsListScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         textDirection: TextDirection.rtl,
                         children: [
-                          Text(
+                          const Text(
                             textDirection: TextDirection.rtl,
                             ' السعر:',
                             style: TextStyle(fontSize: 16),
@@ -110,136 +112,16 @@ class MealsListScreen extends ConsumerWidget {
                           Text(
                             textDirection: TextDirection.rtl,
                             items[index]['price'].toString(),
-                            style: TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ],
                       ),
                       MaterialButton(
                         onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  contentPadding: EdgeInsets.all(0),
-                                  content: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.5,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    padding: EdgeInsets.all(0),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.2,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(16),
-                                                topRight: Radius.circular(16)),
-                                            child: Image.network(
-                                              items[index]['image_url'],
-                                              fit: BoxFit.cover,
-                                              scale: 1,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          items[index]['name'],
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          textDirection: TextDirection.rtl,
-                                          children: [
-                                            Text(
-                                              textDirection: TextDirection.rtl,
-                                              ' السعر:',
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Text(
-                                              textDirection: TextDirection.rtl,
-                                              items[index]['price'].toString(),
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              08,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              IconButton.filled(
-                                                  onPressed: () {},
-                                                  icon: Icon(
-                                                      Icons.minimize_outlined)),
-                                              Text(
-                                                '${1}',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              IconButton.filled(
-                                                  onPressed: () {},
-                                                  icon: Icon(Icons.add)),
-                                            ],
-                                          ),
-                                        ),
-                                        // Button
-                                        MaterialButton(
-                                          color: Colors.green,
-                                          onPressed: () {
-                                            ref
-                                                .read(mealCheckOutListProvider
-                                                    .notifier)
-                                                .update((state) => [
-                                                      ...state,
-                                                      {
-                                                        'name': items[index]
-                                                            ['name'],
-                                                        'quantity': 1
-                                                      }
-                                                    ]);
-                                            ref
-                                                .read(
-                                                    totalPriceProvider.notifier)
-                                                .update((state) =>
-                                                    state +
-                                                    items[index]['price']);
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            'إضافة الى السلة',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
+                          addMealDialog(context, ref, index, items);
                         },
                         color: Colors.green,
-                        child: Text(
+                        child: const Text(
                           'إضافة',
                           style: TextStyle(
                               fontSize: 18,
