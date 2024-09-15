@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -32,15 +34,15 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
               child: Text(
                 textDirection: TextDirection.rtl,
                 'العروض:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             SizedBox(
               height: MediaQuery.of(context).size.height / 4,
               child: PageView.builder(
@@ -62,28 +64,28 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(top: 12),
+              padding: const EdgeInsets.only(top: 12),
               child: SmoothPageIndicator(
                   controller: _controler, // PageController
                   count: 3,
-                  effect: WormEffect(dotHeight: 5), // your preferred effect
+                  effect: const WormEffect(dotHeight: 5), // your preferred effect
                   onDotClicked: (index) {}),
             ),
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
               child: Text(
                 textDirection: TextDirection.rtl,
                 'الوجبات:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 1.36,
                 crossAxisSpacing: 12,
@@ -105,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                               0.1), // Shadow color with lower opacity
                           spreadRadius: 10, // Increase the spread radius
                           blurRadius: 20, // Increase the blur radius
-                          offset: Offset(0, 5), // Increase the vertical offset
+                          offset: const Offset(0, 5), // Increase the vertical offset
                         ),
                       ],
                     ),
@@ -115,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                           // height: 120,
                           width: MediaQuery.of(context).size.width,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 topRight: Radius.circular(8)),
                             child: Image.network(
@@ -129,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.center,
                           child: Text(
                             items[index],
-                            style: TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ),
                       ],
@@ -138,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],

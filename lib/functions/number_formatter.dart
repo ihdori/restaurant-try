@@ -11,7 +11,7 @@ String formatNumber(int number) {
     formattedNumber = numberString[i] + formattedNumber;
     count++;
     if (count % 3 == 0 && i != 0) {
-      formattedNumber = ',' + formattedNumber;
+      formattedNumber = ',$formattedNumber';
     }
   }
 

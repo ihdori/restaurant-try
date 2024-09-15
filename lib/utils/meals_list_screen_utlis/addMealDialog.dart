@@ -1,6 +1,9 @@
+import 'package:firebase_training/functions/number_formatter.dart';
 import 'package:firebase_training/providers/meal_temp_counter_provider.dart';
 import 'package:firebase_training/providers/meals_checkout_list_provider.dart';
 import 'package:firebase_training/providers/total_price_provider.dart';
+import 'package:firebase_training/utils/custom_add_button.dart';
+import 'package:firebase_training/utils/meals_list_screen_utlis/meal_quatity_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +11,7 @@ Future<dynamic> addMealDialog({
   required BuildContext context,
   required WidgetRef ref,
   required int index,
-  required List items,
+  required List<Map<String, dynamic>> items,
 }) {
   return showDialog(
       context: context,
@@ -16,7 +19,7 @@ Future<dynamic> addMealDialog({
         return AlertDialog(
           contentPadding: const EdgeInsets.all(0),
           content: Container(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.45,
               width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(16)),
@@ -25,6 +28,7 @@ Future<dynamic> addMealDialog({
                 builder: (context, ref, child) {
                   final counter = ref.watch(mealTempCounterProvider);
                   return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.2,
@@ -43,65 +47,77 @@ Future<dynamic> addMealDialog({
                       Text(
                         items[index]['name'],
                         style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        textDirection: TextDirection.rtl,
-                        children: [
-                          const Text(
-                            textDirection: TextDirection.rtl,
-                            ' السعر:',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            textDirection: TextDirection.rtl,
-                            items[index]['price'].toString(),
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ],
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            const Text(
+                              textDirection: TextDirection.rtl,
+                              ' السعر:',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              textDirection: TextDirection.rtl,
+                              formatNumber(items[index]['price']),
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 08,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            IconButton.filled(
-                                onPressed: () {
-                                  if (counter > 1) {
-                                    ref
-                                        .read(mealTempCounterProvider.notifier)
-                                        .decrement();
-
-                                    print('---: $counter');
-                                  }
-                                },
-                                icon: const Icon(Icons.minimize_outlined)),
+                            MealQuantityButton(
+                              ref: ref,
+                              icon: const Icon(
+                                Icons.remove,
+                              ),
+                              onTap: () {
+                                ref
+                                    .read(mealTempCounterProvider.notifier)
+                                    .decrement();
+                              },
+                            ),
                             Text(
                               '$counter',
                               style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                                fontSize: 32,
+                                fontWeight: FontWeight.w900,
                               ),
                             ),
-                            IconButton.filled(
-                                onPressed: () {
-                                  ref
-                                      .read(mealTempCounterProvider.notifier)
-                                      .increment();
-
-                                  print('+++: $counter');
-                                },
-                                icon: const Icon(Icons.add)),
+                            MealQuantityButton(
+                              ref: ref,
+                              icon: const Icon(Icons.add),
+                              onTap: () {
+                                ref
+                                    .read(mealTempCounterProvider.notifier)
+                                    .increment();
+                              },
+                            ),
                           ],
                         ),
                       ),
                       // Button
-                      MaterialButton(
+                      CustomAddButton(
+                        items: items,
+                        ref: ref,
+                        index: index,
                         color: Colors.green,
-                        onPressed: () {
+                        textColor: Colors.white,
+                        text: 'إضافة الى السلة',
+                        onTap: () {
                           ref
                               .read(mealCheckOutListProvider.notifier)
                               .update((state) => [
@@ -118,13 +134,6 @@ Future<dynamic> addMealDialog({
                               );
                           Navigator.pop(context);
                         },
-                        child: const Text(
-                          'إضافة الى السلة',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
-                        ),
                       ),
                     ],
                   );

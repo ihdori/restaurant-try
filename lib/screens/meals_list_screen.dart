@@ -1,4 +1,5 @@
 import 'package:firebase_training/functions/number_formatter.dart';
+import 'package:firebase_training/utils/custom_add_button.dart';
 import 'package:firebase_training/utils/meals_list_screen_utlis/addMealDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,16 +29,26 @@ class MealsListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.pushReplacementNamed(context, 'finalScreen');
+            Navigator.pushReplacementNamed(context, 'oderReviewScreen');
           },
           backgroundColor: Colors.green,
-          icon: const Icon(Icons.add_shopping_cart_rounded),
+          isExtended: true,
           label: const Row(
             children: [
-              Text('Check out'),
-              // Icon(Icons.add_shopping_cart_rounded)
+              Text(
+                'الذهاب لاكمال الطلب  ',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+              Icon(
+                Icons.add_shopping_cart_rounded,
+                color: Colors.white,
+              )
             ],
           )),
       body: SingleChildScrollView(
@@ -50,7 +61,11 @@ class MealsListScreen extends ConsumerWidget {
               child: Text(
                 textDirection: TextDirection.rtl,
                 'المندي:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -76,11 +91,13 @@ class MealsListScreen extends ConsumerWidget {
                             0.1), // Shadow color with lower opacity
                         spreadRadius: 10, // Increase the spread radius
                         blurRadius: 20, // Increase the blur radius
-                        offset: Offset(0, 5), // Increase the vertical offset
+                        offset:
+                            const Offset(0, 5), // Increase the vertical offset
                       ),
                     ],
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
                         height: 120,
@@ -99,28 +116,34 @@ class MealsListScreen extends ConsumerWidget {
                       Text(
                         items[index]['name'],
                         style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         textDirection: TextDirection.rtl,
                         children: [
                           const Text(
                             textDirection: TextDirection.rtl,
                             ' السعر:',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 18),
                           ),
                           Text(
                             textDirection: TextDirection.rtl,
                             formatNumber(items[index]['price']),
-                            style: const TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 18),
                           ),
                         ],
                       ),
-                      MaterialButton(
-                        onPressed: () {
+                      CustomAddButton(
+                        items: items,
+                        index: index,
+                        ref: ref,
+                        text: 'إضافة',
+                        color: Colors.amber,
+                        textColor: Colors.black,
+                        onTap: () {
                           addMealDialog(
                             context: context,
                             ref: ref,
@@ -128,15 +151,7 @@ class MealsListScreen extends ConsumerWidget {
                             items: items,
                           );
                         },
-                        color: Colors.green,
-                        child: const Text(
-                          'إضافة',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
-                        ),
-                      )
+                      ),
                     ],
                   ),
                 );

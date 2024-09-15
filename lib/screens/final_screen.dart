@@ -18,7 +18,7 @@ class FinalScreen extends ConsumerWidget {
       child: Scaffold(
         body: Column(
           children: [
-            Text('قائمة طلباتي:'),
+            const Text('قائمة طلباتي:'),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.7,
               child: ListView.builder(
@@ -28,7 +28,7 @@ class FinalScreen extends ConsumerWidget {
                     title: Text(mealDetails[index]['name']),
                     leading: Text(
                       (mealDetails[index]['quantity'].toString()),
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     trailing: Text(
                         'سعر الوجبة الواحدة: ${formatNumber(mealDetails[index]['price'])}'),
@@ -52,8 +52,8 @@ class FinalScreen extends ConsumerWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text('تم نسخ الطلب بنجاح'),
-                          content: Container(
+                          title: const Text('تم نسخ الطلب بنجاح'),
+                          content: SizedBox(
                             height: MediaQuery.of(context).size.height * 0.6,
                             width: MediaQuery.of(context).size.width / 4,
                             child: Column(
@@ -62,7 +62,7 @@ class FinalScreen extends ConsumerWidget {
                                   text,
                                   textDirection: TextDirection.rtl,
                                 ),
-                                Text(
+                                const Text(
                                     textDirection: TextDirection.rtl,
                                     'الرجاء العودة للبوت و لصق النص الذي تم نسخه في البوت ليتم التواصل معك من قبل موظف التوصيل'),
                                 ElevatedButton(
@@ -70,14 +70,14 @@ class FinalScreen extends ConsumerWidget {
                                       Navigator.pushReplacementNamed(
                                           context, '/');
                                     },
-                                    child: Text('حسناً'))
+                                    child: const Text('حسناً'))
                               ],
                             ),
                           ),
                         );
                       });
                 },
-                child: Text('Press to copy')),
+                child: const Text('Press to copy')),
           ],
         ),
       ),
