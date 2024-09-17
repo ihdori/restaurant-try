@@ -19,6 +19,8 @@ class OrderReviewScreen extends ConsumerWidget {
     final text = ref.watch(textProvider);
     final ordersList = ref.watch(mealsFinalListProvider);
     final totalPrice = ref.watch(totalPriceProvider);
+    final number = ref.watch(userPhoneNumberProvider);
+    final address = ref.watch(userAdressProvider);
     final List<Widget> list = List.generate(
       ordersList.length,
       (index) => Column(
@@ -26,19 +28,23 @@ class OrderReviewScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              // IconButton(
+              //     onPressed: () {}, icon: Icon(Icons.app_registration_rounded),),
               Text(
                 'عدد: ${ordersList[index]['quantity']}',
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
               ),
               Text(
                 '${ordersList[index]['name']}',
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
               ),
             ],
           ),
           index != ordersList.length
-              ? Divider()
-              : SizedBox(
+              ? const Divider()
+              : const SizedBox(
                   height: 10,
                 ),
         ],
@@ -60,6 +66,7 @@ class OrderReviewScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Form(
                     key: formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -79,6 +86,7 @@ class OrderReviewScreen extends ConsumerWidget {
                             messageOnError:
                                 'الرجاء اضافة رقم هاتفك ليتم التواصل معك بخصوص الطلب',
                             maxLength: 11,
+                            isNumber: true,
                             onSaved: (value) {
                               ref
                                   .read(userPhoneNumberProvider.notifier)
@@ -86,6 +94,7 @@ class OrderReviewScreen extends ConsumerWidget {
                             }),
                         customTextField(
                             controller: addressController,
+                            isNumber: false,
                             ref: ref,
                             label: 'العنوان',
                             messageOnError: 'الرجاء قم بإضافة عنوان عنوان صالح',
@@ -101,19 +110,76 @@ class OrderReviewScreen extends ConsumerWidget {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
-                                // Optionally show a success message
-                                Clipboard.setData(ClipboardData(text: text));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('تم الطلب بنجاح')),
-                                );
+
+                                Navigator.pushNamed(context, 'finalScreen');
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'خطأ في ملئ المعلومات',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                              ),
+                                              const Text(
+                                                textAlign: TextAlign.center,
+                                                'هنالك خطأ في المعلومات المدخلة الرجاء التأكد من أن رقم الهاتف كامل',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.8,
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                      color: Colors.orange),
+                                                  child: const Text(
+                                                    textAlign: TextAlign.center,
+                                                    'أغلاق',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
                               }
-                              Navigator.pushNamed(context, 'finalScreen');
                             },
                             child: Container(
                               alignment: Alignment.center,
                               width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.all(10),
-                              margin: EdgeInsets.only(top: 12),
+                              margin: const EdgeInsets.only(top: 12),
                               decoration: BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(12),
@@ -171,6 +237,20 @@ class OrderReviewScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.keyboard_arrow_left_outlined,
+                    size: 32,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
             const Text(
               'قائمة طلباتي:',
@@ -212,19 +292,22 @@ class OrderReviewScreen extends ConsumerWidget {
     required String messageOnError,
     required int maxLength,
     required Function onSaved,
-    key,
+    required bool isNumber,
     hint,
   }) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-        key: key,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
-        keyboardType: TextInputType.phone,
+        keyboardType: isNumber ? TextInputType.phone : TextInputType.text,
         validator: (value) {
-          if (value == '') {
+          if (value!.isEmpty) {
             return messageOnError;
+          } else if (isNumber == true) {
+            if (value.length < 11) {
+              return 'خطأ في الرقم الرجاء التأكد من أن الرقم صحيح';
+            }
           }
         },
         onSaved: (value) {

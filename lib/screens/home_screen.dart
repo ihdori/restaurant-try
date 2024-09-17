@@ -1,3 +1,5 @@
+import 'package:firebase_training/data/data.dart';
+import 'package:firebase_training/screens/meals_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -10,21 +12,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> offerImages = [
-    'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/20941486b0c8dd9e41aaa905d541f812',
-    'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/0c3145c660789f310928f883581515cd',
-    'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/e0fadac00347316f951e8cc926a814eb',
+    '../assets/pages/page1.jpg',
+    '../assets/pages/page2.jpg',
+    '../assets/pages/pag3.jpg',
   ];
 
-  final List<String> items = [
-    'مشويات',
-    'مقبلات',
-    'مندي',
-    'بركر',
-    'بيتزا',
-    'ريزو',
-    'عصائر',
-    'معجنات',
-  ];
   final _controler = PageController();
   @override
   Widget build(BuildContext context) {
@@ -53,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
+                      child: Image.asset(
                         offerImages[index],
                         fit: BoxFit.cover,
                       ),
@@ -68,7 +60,10 @@ class _HomePageState extends State<HomePage> {
               child: SmoothPageIndicator(
                   controller: _controler, // PageController
                   count: 3,
-                  effect: const WormEffect(dotHeight: 5), // your preferred effect
+                  effect: const WormEffect(
+                    dotHeight: 5,
+                    activeDotColor: Colors.green,
+                  ), // your preferred effect
                   onDotClicked: (index) {}),
             ),
             const SizedBox(height: 16),
@@ -76,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(right: 8.0),
               child: Text(
                 textDirection: TextDirection.rtl,
-                'الوجبات:',
+                'أقسام الوجبات:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -95,7 +90,13 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, 'mealsListScreen');
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return MealsListScreen(
+                            item: items[index],
+                            nestedItems: items[index]['items']);
+                      },
+                    ));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -107,21 +108,22 @@ class _HomePageState extends State<HomePage> {
                               0.1), // Shadow color with lower opacity
                           spreadRadius: 10, // Increase the spread radius
                           blurRadius: 20, // Increase the blur radius
-                          offset: const Offset(0, 5), // Increase the vertical offset
+                          offset: const Offset(
+                              0, 5), // Increase the vertical offset
                         ),
                       ],
                     ),
                     child: Column(
                       children: [
                         SizedBox(
-                          // height: 120,
+                          height: 100,
                           width: MediaQuery.of(context).size.width,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 topRight: Radius.circular(8)),
                             child: Image.network(
-                              'https://th.bing.com/th/id/OIP.FZapWecx1VvgfBZlI_MdtQAAAA',
+                              items[index]['image_url'],
                               fit: BoxFit.cover,
                               scale: 0.5,
                             ),
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           alignment: Alignment.center,
                           child: Text(
-                            items[index],
+                            items[index]['name'],
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),

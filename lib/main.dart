@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        'mealsListScreen': (context) => MealsListScreen(),
+        // 'mealsListScreen': (context) => MealsListScreen(),
         'finalScreen': (context) => const FinalScreen(),
         'oderReviewScreen': (context) => const OrderReviewScreen(),
         //Temp
