@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_training/providers/getFinalOrder.dart';
 import 'package:firebase_training/screens/final_screen.dart';
 import 'package:firebase_training/screens/home_screen.dart';
@@ -11,17 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyAc-DMew6WctRVcC8OwttwlRrxOF_2aYpg",
-          authDomain: "trainig-d83a4.firebaseapp.com",
-          projectId: "trainig-d83a4",
-          storageBucket: "trainig-d83a4.appspot.com",
-          messagingSenderId: "827598893175",
-          appId: "1:827598893175:web:03e52f090e1fd959b25672",
-          measurementId: "G-9B3PJ0Z7FG"));
-  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(const ProviderScope(child: MyApp()));
 }
 

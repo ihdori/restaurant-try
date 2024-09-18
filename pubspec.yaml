@@ -38,10 +38,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_native_splash: ^2.4.1
   smooth_page_indicator: ^1.2.0+3
-  firebase_core: ^3.4.1
-  firebase_auth: ^5.2.1
-  cloud_firestore: ^5.4.1
-  firebase_storage: ^12.3.0
+  
 
 dev_dependencies:
   flutter_test:
