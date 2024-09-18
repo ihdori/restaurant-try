@@ -4,7 +4,6 @@ import 'package:firebase_training/providers/getFinalOrder.dart';
 import 'package:firebase_training/screens/final_screen.dart';
 import 'package:firebase_training/screens/home_screen.dart';
 import 'package:firebase_training/screens/order_review_screen.dart';
-
 import 'package:firebase_training/tempScreens/auth/login.dart';
 import 'package:firebase_training/tempScreens/auth/signup.dart';
 import 'package:flutter/material.dart';
