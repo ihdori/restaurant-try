@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_training/providers/getFinalOrder.dart';
 import 'package:firebase_training/screens/final_screen.dart';
 import 'package:firebase_training/screens/home_screen.dart';
-import 'package:firebase_training/screens/meals_list_screen.dart';
 import 'package:firebase_training/screens/order_review_screen.dart';
+
 import 'package:firebase_training/tempScreens/auth/login.dart';
 import 'package:firebase_training/tempScreens/auth/signup.dart';
 import 'package:flutter/material.dart';
